@@ -13,6 +13,9 @@ using std::cout;
 using std::cin; 
 using std::endl;
 
+#include "Account.h"
+#include "SavingAccount.h"
+
 
 int main() {
 
@@ -68,8 +71,91 @@ int main() {
             Player 'has a' special attack 
 
         Using a combination of public inheritance and composition, we can express complex relationships between classes and leverage code reuse
-        
+
+        Access specifier can be public, private or protected
+
+        public: Most common, Establishes 'is-a' relationship between Derived and base classes
+        private and protected: Establishes "derived class has a base class" relationship
+
+
     */
+
+   cout << "================ACCOUNT=================\n";
+
+   Account acc {};
+
+   acc.deposit(1000);
+   acc.withdraw(500);
+
+   cout << endl;
+
+    Account *ptr_acc {nullptr};
+    ptr_acc = new Account();
+    ptr_acc->deposit(2000);
+    ptr_acc->withdraw(500);
+
+    delete ptr_acc;
+
+    cout << "================SAVING ACCOUNT=================\n";
+   
+   SavingAccount sav_acc {};
+
+   sav_acc.deposit(2000);
+   sav_acc.withdraw(500);
+
+   cout << endl;
+
+    SavingAccount *ptr_sav_acc {nullptr};
+    ptr_sav_acc = new SavingAccount();
+    ptr_sav_acc->deposit(2000);
+    ptr_sav_acc->withdraw(500);
+
+    delete ptr_sav_acc;
+
+    /*
+    protected class member modifier
+
+    Protected class members are accessible to all methods of the class itself. Protected class members are also accessible by any derived classs
+    that have been derived from the base class. However protected class members act like private class members, i.e they are not accessible from
+    objects of either the base class or the derived class
+
+    let a,b,c be integer members of a class with access modifiers public, protected, private
+    a - public
+    b - protected
+    c - private
+
+    Access depends on the type of inheritance involved
+
+    Access with public inheritance
+
+    base class          Access in derived class
+    public: a           public : a
+    protected : b       protected : b    
+    privat : c          c : no access
+
+    The derived class does not have access to the private variables of base class. Any attemt to access base class private class members from derived class
+    results in compiler error
+
+    protected is protected which means no matter how deep the class hierarchy goes, the protected class members will be accessible by all derived 
+    classes
+
+    Access with protected inheritance
+
+    base class          Access in derived class
+    public: a           protected : a
+    protected : b       protected : b    
+    privat : c          c : no access
+
+    Access with private inheritance
+
+    base class          Access in derived class
+    public: a           private : a
+    protected : b       private : b    
+    privat : c          c : no access
+
+
+    */
+
     return 0;
 
 }
