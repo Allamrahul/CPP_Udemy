@@ -17,6 +17,45 @@ using std::endl;
 #include "SavingAccount.h"
 
 
+class Base {
+    private:
+        int value;
+
+    public:
+        Base() : value {0} {
+            cout << "Base no args constructor \n";
+        }
+
+        Base(int x) : value {x} {
+            cout << "Base (int) overloaded constructor \n";
+        }
+
+        ~Base() {
+            cout << "Base destructor \n";
+        }
+};
+
+class Derived : public Base {
+    private:
+        int doubled_val;
+    public:
+        Derived() : doubled_val {0} {
+            cout << "Derived no args constructor \n";
+        }
+
+        Derived(int x) : doubled_val {x*2} {    // when Derived object is constructed with a parameter, it woud first come here, then calls the no args
+        // constructor of base class instead of base class parameterized constructor and then it comes back and executes the derived
+        // class constructor. It can be forced to call the parameterized constructor of the base class instead of the default constructor of the base class. 
+            cout << "Derived (int) overloaded constructor \n";
+        }
+
+        ~Derived() {
+            cout << "Derived desstructor \n";
+        }
+
+
+};
+
 int main() {
 
 
@@ -80,37 +119,37 @@ int main() {
 
     */
 
-   cout << "================ACCOUNT=================\n";
+//    cout << "================ACCOUNT=================\n";
 
-   Account acc {};
+//    Account acc {};
 
-   acc.deposit(1000);
-   acc.withdraw(500);
+//    acc.deposit(1000);
+//    acc.withdraw(500);
 
-   cout << endl;
+//    cout << endl;
 
-    Account *ptr_acc {nullptr};
-    ptr_acc = new Account();
-    ptr_acc->deposit(2000);
-    ptr_acc->withdraw(500);
+//     Account *ptr_acc {nullptr};
+//     ptr_acc = new Account();
+//     ptr_acc->deposit(2000);
+//     ptr_acc->withdraw(500);
 
-    delete ptr_acc;
+//     delete ptr_acc;
 
-    cout << "================SAVING ACCOUNT=================\n";
+//     cout << "================SAVING ACCOUNT=================\n";
    
-   SavingAccount sav_acc {};
+//    SavingAccount sav_acc {};
 
-   sav_acc.deposit(2000);
-   sav_acc.withdraw(500);
+//    sav_acc.deposit(2000);
+//    sav_acc.withdraw(500);
 
-   cout << endl;
+//    cout << endl;
 
-    SavingAccount *ptr_sav_acc {nullptr};
-    ptr_sav_acc = new SavingAccount();
-    ptr_sav_acc->deposit(2000);
-    ptr_sav_acc->withdraw(500);
+//     SavingAccount *ptr_sav_acc {nullptr};
+//     ptr_sav_acc = new SavingAccount();
+//     ptr_sav_acc->deposit(2000);
+//     ptr_sav_acc->withdraw(500);
 
-    delete ptr_sav_acc;
+//     delete ptr_sav_acc;
 
     /*
     protected class member modifier
@@ -154,8 +193,43 @@ int main() {
     privat : c          c : no access
 
 
+    constructors and destructors
+
+    the base part of the derived class must be initialized before the derived class is initialized
+
+    When a derived class object is created, first the base class constructor executes and then the derived class constructor executes
+
+    Class destructors are invoked in the reversed order as constructors. The derived part of the derived class MUST be destroyed before base 
+    class destructor is invoked
+
+    When a derived object is destroyed, 
+    Derived class destructor executes first
+    Base class destructor executes next
+
     */
+//    cout << endl;
+//    Base b;  // base contructor -> base destructor
+
+//    Derived d;   // base constructor -> derived constructor -> derived desctructor -> base destructor
+
+   /*
+    A base class does not inherit 
+        base class constructors
+        base class destructor
+        base class overloaded assignment operator
+        base class friend functions
+    
+    However, the derived class constructiors, destructors and overloaded assignment operators can invoke the base class versions
+
+
+    When you dont provide the constructor in your derived class, compiler will automatically provide a default constructor. WHen the derived class
+    objct is created, the base class constructor is called but since the compiler provided the default constrctor in derived class,
+    data members of the derived class will be uninitialized.
+   */
+
+
 
     return 0;
 
 }
+
